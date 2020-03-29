@@ -18,7 +18,11 @@
             /// <summary>
             /// Canada
             /// </summary>
-            CANADA = 1
+            CANADA = 1,
+            /// <summary>
+            /// France
+            /// </summary>
+            FRANCE = 2
         }
         #endregion
 
@@ -32,7 +36,7 @@
         /// <returns>The URL to locate nearby stores</returns>
         public static string findURL(Country c)
         {
-            return basePrefix(c) + "store-locator?s={street}&c={city}&type={type}";
+            return basePrefix(c) + "store-locator?s={street}&c={city} {reigon} {postal}&type={type}";
         }
 
         /// <summary>
@@ -123,12 +127,44 @@
 
         private static string basePrefix(Country c)
         {
-            return "https://order.dominos." + (c == Country.USA ? "com" : "ca") + "/power/";
+            string countryURL;
+            switch (c)
+            {
+                case URLs.Country.USA:
+                    countryURL = "com";
+                    break;
+                case URLs.Country.CANADA:
+                    countryURL = "ca";
+                    break;
+                case URLs.Country.FRANCE:
+                    countryURL = "fr";
+                    break;
+                default:
+                    countryURL = "";
+                    break;
+            }
+            return "https://order.dominos." + countryURL + "/power/";
         }
 
         private static string trackPrefix(Country c)
         {
-            return "https://trkweb.dominos." + (c == Country.USA ? "com" : "ca") + "/orderstorage/GetTrackerData?";
+            string countryURL;
+            switch (c)
+            {
+                case URLs.Country.USA:
+                    countryURL = "com";
+                    break;
+                case URLs.Country.CANADA:
+                    countryURL = "ca";
+                    break;
+                case URLs.Country.FRANCE:
+                    countryURL = "fr";
+                    break;
+                default:
+                    countryURL = "";
+                    break;
+            }
+            return "https://order.dominos." + countryURL + "/orderstorage/GetTrackerData?";
         }
         #endregion
         #endregion

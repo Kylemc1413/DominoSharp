@@ -62,7 +62,7 @@ namespace DominoSharp
         public List<Store> getNearbyStores()
         {
             // Queries the nearest stores
-            string properURL = URLs.findURL(Country).Replace("{street}", Street).Replace("{city}", City).Replace("{type}", delivery.ToString());
+            string properURL = URLs.findURL(Country).Replace("{street}", Street).Replace("{city}", City).Replace("{reigon}", Region).Replace("{postal}", ZIP).Replace("{type}", delivery.ToString());
 
             // Get JObject from our JSON data gathered.
             JObject data = Utils.request_JSON(properURL);
